@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# a Bash script that configures a new Ubuntu machine to use nginx
+apt-get update -y
+apt-get install nginx -y
+service nginx start
+echo 'Hello World!' > /var/www/html/index.nginx-debian.html
+block="\n\tlocation /redirect_me {\n\t\treturn 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}\n"
+sed -i "53s|.*|$block|" /etc/nginx/sites-enabled/default
+service nginx restart
