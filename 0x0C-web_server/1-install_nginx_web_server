@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# a Bash script that configures a new Ubuntu machine to use nginx
+apt-get update -y
+apt-get install nginx -y
+service nginx start
+echo 'Hello World!' > /var/www/html
+service nginx restart
