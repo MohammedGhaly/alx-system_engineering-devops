@@ -4,6 +4,29 @@
 apt-get -y update
 apt-get install -y nginx
 
-NEW_RULE="\\\tadd_header X-Served-By $(hostname);\n"
-sudo sed -i "24i $NEW_RULE" /etc/nginx/sites-available/default
-sudo systemctl reload nginx
+mkdir -p /var/www/html
+touch /var/www/html/custom404.html
+echo "Ceci n'est pas une page" > /var/www/html/custom404.html
+touch /var/www/html/index.html
+echo "Hello World!" > /var/www/html/index.html
+
+commando="server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    add_header X-Served-By $HOSTNAME;
+    root   /var/www/html;
+    index  index.html index.htm;
+
+    location /redirect_me {
+        return 301 http://youtube.com/;
+    }
+
+    error_page 404 /custom404.html;
+    location /404 {
+      root /var/www/html;
+      internal;
+    }
+}"
+sudo echo > /etc/nginx/sites-available/default
+
+sudo service nginx restart
