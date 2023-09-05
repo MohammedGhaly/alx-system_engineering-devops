@@ -2,7 +2,7 @@
 # Configure haproxy to distribute traffic to 2 servers
 
 commando="\
-frontend haproxy_balancer
+frontend http
     bind *:80
     mode http
     default_backend webservers
