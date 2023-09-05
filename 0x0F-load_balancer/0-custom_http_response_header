@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Configures Nginx so that its HTTP response contains a custom header
 
-apt-get update
+apt-get -y update
 apt-get install -y nginx
 
 NEW_RULE="\\\tadd_header X-Served-By $(hostname);\n"
