@@ -2,6 +2,6 @@
 # script that configures the container to run nginx on nginx user in 7 lines
 pkill -f apache2
 chmod 644 /etc/nginx/nginx.conf
-sudo sed -i 's/80/8080/' /etc/nginx/sites-enabled/default
-sudo sed -i "1i user nginx;" /etc/nginx/nginx.conf
+sudo sed -Ei 's/\s*#?\s*user .*/user nginx;/' /etc/nginx/nginx.conf
+sudo sed -Ei 's/(listen (\[::\]:)?80) /\180 /' /etc/nginx/sites-enabled/default
 sudo -u nginx service nginx restart
